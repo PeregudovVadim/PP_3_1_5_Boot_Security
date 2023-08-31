@@ -11,8 +11,6 @@ import java.util.List;
 
 @Service
 public class RoleServiceImpl implements RoleService {
-
-
     private final RoleDAO roleDAO;
 
     @Autowired
@@ -36,6 +34,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
     public void createRole(String roleName) {
         roleDAO.createRole(roleName);
     }

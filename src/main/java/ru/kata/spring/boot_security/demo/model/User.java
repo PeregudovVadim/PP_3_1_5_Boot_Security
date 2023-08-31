@@ -13,6 +13,10 @@ import java.util.Set;
 
 @Table(name = "users")
 @Entity
+@NamedEntityGraph(
+        name = "User.roles",
+        attributeNodes = {@NamedAttributeNode("roles")}
+)
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +31,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinTable(name = "t_users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -36,7 +40,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String surname, String email,String password) {
+    public User(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;
         this.email = email;

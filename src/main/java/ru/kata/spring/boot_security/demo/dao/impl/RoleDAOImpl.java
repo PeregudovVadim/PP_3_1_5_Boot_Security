@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
 public class RoleDAOImpl implements RoleDAO {
 
     @PersistenceContext
@@ -31,7 +30,6 @@ public class RoleDAOImpl implements RoleDAO {
     }
 
     @Override
-    @Transactional
     public Role findRoleById(Long id) {
         return entityManager.find(Role.class, id);
     }
@@ -50,7 +48,6 @@ public class RoleDAOImpl implements RoleDAO {
     }
 
     @Override
-    @Transactional
     public void createRole(String roleName) {
         entityManager.persist(new Role(roleName));
     }

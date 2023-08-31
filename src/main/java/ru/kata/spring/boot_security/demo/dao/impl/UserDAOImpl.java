@@ -1,9 +1,9 @@
 package ru.kata.spring.boot_security.demo.dao.impl;
 
 
+import org.hibernate.graph.GraphSemantic;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.UserDAO;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-@Transactional
 public class UserDAOImpl implements UserDAO {
     @PersistenceContext
     private EntityManager entityManager;
@@ -24,13 +23,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    @Transactional
     public void createUser(User user) {
         entityManager.persist(user);
     }
 
     @Override
-    @Transactional
     public void updateUser(User user, long id) {
         entityManager.merge(user);
     }
@@ -41,7 +38,6 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    @Transactional
     public User deleteUser(long id) throws NullPointerException {
         User user = findById(id);
         if (null == user) {
@@ -58,6 +54,7 @@ public class UserDAOImpl implements UserDAO {
             return entityManager
                     .createQuery("SELECT u FROM User u WHERE u.email=:email", User.class)
                     .setParameter("email", email)
+                    .setHint(GraphSemantic.FETCH.getJpaHintName(), entityManager.getEntityGraph("User.roles"))
                     .getSingleResult();
         } catch (NoResultException e) {
             throw new UsernameNotFoundException("User not found!");
