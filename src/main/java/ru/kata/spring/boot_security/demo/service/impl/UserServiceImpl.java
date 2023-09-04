@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public void updateUser(User user, long id, Long[] selectedRoles) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(new HashSet<>(roleService.getRoleByIds(selectedRoles)));
         userDAO.updateUser(user, id);
     }

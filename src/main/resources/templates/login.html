@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles/css/styles.css}">
+    <!--    th:href="@{/styles/css/styles.css}-->
+    <!-- href="../static/css/styles.css" -->
+    <title>login</title>
+</head>
+<body class="bg-light">
+<form class="form-group" action="/login" method="post">
+
+    <div class=" mx-auto my-5 form-login">
+
+        <label><h3>Please sign in</h3></label>
+        <input type="text" id="login" name="username" class="form-control " placeholder="Email address">
+
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+        <button type="submit" class="btn btn-primary my-2  btn-block signIn">Sign in</button>
+
+        <div class="error-massage" th:if="${param.error}">
+            Неправильный логин или пароль
+        </div>
+    </div>
+</form>
+</body>
+</html>

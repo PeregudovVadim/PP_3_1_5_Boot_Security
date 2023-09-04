@@ -26,6 +26,9 @@ public class User implements UserDetails {
     private String name;
     @Column(name = "surname")
     private String surname;
+
+    @Column(name = "age")
+    private byte age;
     @Column(name = "email")
     private String email;
     @Column(name = "password")
@@ -38,13 +41,6 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
     public User() {
-    }
-
-    public User(String name, String surname, String email, String password) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
     }
 
     public Long getId() {
@@ -85,6 +81,14 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public byte getAge() {
+        return age;
+    }
+
+    public void setAge(byte age) {
+        this.age = age;
     }
 
     @Override

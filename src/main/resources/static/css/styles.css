@@ -1,0 +1,23 @@
+.error-massage {
+    color: red;
+}
+.form-login {
+    width: 300px
+}
+body{
+    background-color: whitesmoke;
+}
+.toolBar {
+    background-color: white;
+    height: 100vh;
+}
+.form-group {
+    width: 50%;
+    margin: 0 auto;
+}
+.form-group label {
+    margin-bottom: 0px;
+}
+.form-group label {
+    font-weight: bold;
+}
