@@ -18,7 +18,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
     private final UserDetailsService userDetailsService;
 
-    public WebSecurityConfig(SuccessUserHandler successUserHandler,@Lazy UserDetailsService userDetailsService) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsService userDetailsService) {
         this.successUserHandler = successUserHandler;
         this.userDetailsService = userDetailsService;
     }
@@ -28,18 +28,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/admin/**").hasRole("ADMIN")
-                    .antMatchers("/user/**").hasAnyRole("ADMIN","USER")
-                    .antMatchers("/styles/css/**").permitAll()
+                    .antMatchers("/login").permitAll()
+                    .antMatchers("/admin/**","api/admin/**","api/role/**").hasRole("ADMIN")
+                    .antMatchers("/user/**","api/user/**").hasAnyRole("ADMIN","USER")
+                    .antMatchers("/static/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                 .formLogin()
                     .loginPage("/login")
+                    .loginProcessingUrl("/process_login")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .failureUrl("/login?error")
                     .successHandler(successUserHandler)
                     .permitAll()
                 .and()
                 .logout()
-                    .permitAll();
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login");
     }
 
     @Bean

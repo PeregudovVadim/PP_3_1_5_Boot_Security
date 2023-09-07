@@ -12,9 +12,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
+    @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/user").setViewName("user");
+        registry.addViewController("/user").setViewName("home-panel");
+        registry.addViewController("/admin").setViewName("home-panel");
+
     }
+
     @Bean
     public FilterRegistrationBean<HiddenHttpMethodFilter> hiddenHttpMethodFilter() {
         return new FilterRegistrationBean<>(new HiddenHttpMethodFilter());
@@ -23,8 +27,11 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-                .addResourceHandler("/styles/css/**")
+                .addResourceHandler("/static/css/**")
                 .addResourceLocations("classpath:/static/css/");
+        registry
+                .addResourceHandler("/static/js/**")
+                .addResourceLocations("classpath:/static/js/");
     }
 
 }
