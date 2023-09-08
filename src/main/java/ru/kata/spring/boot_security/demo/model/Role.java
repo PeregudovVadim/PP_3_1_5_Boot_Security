@@ -20,7 +20,7 @@ public class Role implements GrantedAuthority {
     private String role;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<User> users;
 
     public Role() {
